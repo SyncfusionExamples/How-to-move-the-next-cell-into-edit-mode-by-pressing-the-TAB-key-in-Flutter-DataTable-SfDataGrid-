@@ -77,7 +77,7 @@ class CustomSelectionManager extends RowSelectionManager {
   CustomSelectionManager(this.dataGridController);
   DataGridController dataGridController;
   @override
-  void handleKeyEvent(RawKeyEvent keyEvent) async {
+  Future<void> handleKeyEvent(RawKeyEvent keyEvent) async {
     if (keyEvent.logicalKey == LogicalKeyboardKey.tab) {
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
         dataGridController.beginEdit(dataGridController.currentCell);
@@ -129,8 +129,8 @@ class EmployeeDataSource extends DataGridSource {
   }
 
   @override
-  void onCellSubmit(DataGridRow dataGridRow, RowColumnIndex rowColumnIndex,
-      GridColumn column) {
+  Future<void> onCellSubmit(DataGridRow dataGridRow,
+      RowColumnIndex rowColumnIndex, GridColumn column) async {
     final dynamic oldValue = dataGridRow
             .getCells()
             .firstWhereOrNull((DataGridCell dataGridCell) =>
